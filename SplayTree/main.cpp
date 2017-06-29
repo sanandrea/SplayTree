@@ -210,6 +210,7 @@ public:
 int _print_t(Node *tree, int is_left, int offset, int depth, char s[20][255]);
 
 int main(int argc, const char * argv[]) {
+    /*
     SplayTree st;
     int vector[10] = {9,8,7,6,5,4,3,2,1,0};
     Node *root;
@@ -227,7 +228,111 @@ int main(int argc, const char * argv[]) {
     PrettyPrint(root);
     PrettyPrint(root = st.Delete(7, root));
     freeBST(root);
+    */
+    
+    
+    
+    int option; // user's entered option will be saved in this variable
+    Node *root = NULL;
+    SplayTree st;
+    
+    do {
+        //Displaying Options for the menu
+        std::cout << "1) Create Splay Tree with 10 elements" << std::endl;
+        std::cout << "2) Add element to Splay Tree " << std::endl;
+        std::cout << "3) Remove element from Splay Tree" << std::endl;
+        std::cout << "4) Find element" << std::endl;
+        std::cout << "5) Print BST" << std::endl;
+        std::cout << "6) Free BST" << std::endl;
+        std::cout << "7) Splay Tree" << std::endl;
+        std::cout << "8) Exit Program " << std::endl;
+        //Prompting user to enter an option according to menu
+        std::cout << "Please select an option : ";
+        std::cin >> option;  // taking option value as input and saving in variable "option"
+        
+        if (option == 1) {
+            if (root != NULL) {
+                std::cout << "Splay Tree is already created, select other options" << std::endl;
+                continue;
+            }
+            std::cout << "Creating Splay Tree" << std::endl;
+            const int length = 10;
+            int i;
+            int vector[10] = {9,8,7,6,5,4,3,2,1,0};
+            for(i = 0; i < length; i++){
+                root = st.Insert(vector[i], root);
+                std::cout<<"Adding element: "<<vector[i]<<std::endl;
+            }
+            
+        }
+        else if (option == 2) // Checking if user selected option 1
+        {
+            int element;
+            if (root == NULL) {
+                std::cout << "Please create Splay Tree first" << std::endl;
+                continue;
+            }
+            std::cout << "Adding element to Splay Tree" << std::endl;
+            std::cout << "Provide element value" << std::endl;
+            std::cin >> element;
+            root = st.Insert(element, root);
+        }
+        else if (option == 3) // Checking if user selected option 2
+        {
+            int element;
+            if (root == NULL) {
+                std::cout << "Please create Splay Tree first" << std::endl;
+                continue;
+            }
+            std::cout << "Removing element to BST" << std::endl;
+            std::cout << "Provide element value to remove" << std::endl;
+            std::cin >> element;
+            root = st.Delete(element, root);
+        }
+        else if (option == 4) // Checking if user selected option 3
+        {
+            int element;
+            if (root == NULL) {
+                std::cout << "Please create Splay Tree first" << std::endl;
+                continue;
+            }
+            std::cout << "Find element in Splay Tree" << std::endl;
+            std::cout << "Provide element value to find" << std::endl;
+            std::cin >> element;
+            root = st.Search(element, root);
+        }
+        else if (option == 5) // Checking if user selected option 4
+        {
+            PrettyPrint(root);
+        }else if (option == 6)
+        {
+            std::cout << "Removing all BST" << std::endl;
+            freeBST(root);
+            root = NULL;
+        }
+        else if (option == 7)
+        {
+            int element;
+            if (root == NULL) {
+                std::cout << "Please create Splay Tree first" << std::endl;
+                continue;
+            }
+            std::cout << "Splay Tree" << std::endl;
+            std::cout << "Provide element value to Splay" << std::endl;
+            std::cin >> element;
+            root = st.Splay(element, root);
+            
+        }
+        else //if user has entered invalid choice (other than 1,2,3 or 4)
+        {
+            std::cout << "Quitting program..." << std::endl;
+            break;
+        }
+    } while (option <= 7);
+    return 0;
+
 }
+
 
 
 void PrettyPrint(Node *node){
